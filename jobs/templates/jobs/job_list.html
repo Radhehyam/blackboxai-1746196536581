@@ -16,14 +16,18 @@
 </form>
 
 {% if jobs %}
-    <ul class="space-y-4">
+    <ul class="space-y-6">
         {% for job in jobs %}
-        <li class="bg-white p-4 rounded shadow hover:shadow-md transition-shadow">
-            <a href="{% url 'jobs:job_detail' job.pk %}" class="text-xl font-semibold text-blue-600 hover:underline">
+        <li class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <a href="{% url 'jobs:job_detail' job.pk %}" class="text-2xl font-bold text-blue-700 hover:underline">
                 {{ job.title }}
             </a>
-            <p class="text-gray-600">{{ job.company_name }} - {{ job.location }}</p>
-            <p class="text-sm text-gray-500">Posted on {{ job.date_posted|date:"M d, Y" }}</p>
+            <p class="text-gray-700 mt-1">{{ job.company_name }} - {{ job.location }}</p>
+            <p class="text-sm text-gray-500 mt-1">Posted on {{ job.date_posted|date:"M d, Y" }}</p>
+            <p class="mt-2 text-gray-600 line-clamp-3">{{ job.description }}</p>
+            <a href="{% url 'jobs:job_detail' job.pk %}" class="inline-block mt-3 text-blue-600 hover:underline font-semibold">
+                View Details &rarr;
+            </a>
         </li>
         {% endfor %}
     </ul>
