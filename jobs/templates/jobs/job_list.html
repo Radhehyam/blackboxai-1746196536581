@@ -1,0 +1,33 @@
+{% extends "jobs/base.html" %}
+
+{% block title %}Job Listings - GovtJobSearch{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-semibold mb-6">Latest Government Jobs</h1>
+
+<form method="get" action="{% url 'jobs:job_list' %}" class="mb-6">
+    <input
+        type="text"
+        name="q"
+        value="{{ query|default:'' }}"
+        placeholder="Search jobs by title, company, location..."
+        class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+</form>
+
+{% if jobs %}
+    <ul class="space-y-4">
+        {% for job in jobs %}
+        <li class="bg-white p-4 rounded shadow hover:shadow-md transition-shadow">
+            <a href="{% url 'jobs:job_detail' job.pk %}" class="text-xl font-semibold text-blue-600 hover:underline">
+                {{ job.title }}
+            </a>
+            <p class="text-gray-600">{{ job.company_name }} - {{ job.location }}</p>
+            <p class="text-sm text-gray-500">Posted on {{ job.date_posted|date:"M d, Y" }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-gray-600">No jobs found matching your search.</p>
+{% endif %}
+{% endblock %}
